@@ -1,5 +1,6 @@
 package com.example.notebook.database
 
+import java.io.Serializable
 import java.sql.Timestamp
 
 
@@ -7,9 +8,9 @@ import java.sql.Timestamp
 
 
 data class Notebook(
-    val notebookId: Long=0L,
+    val notebookId: Long = 0L,
 
-    var content: String="",
+    var content: String = "",
 
-    var timeStamp: Timestamp= Timestamp(System.currentTimeMillis())
-)
+    var timeStamp: Timestamp = Timestamp(System.currentTimeMillis())
+) : Serializable
