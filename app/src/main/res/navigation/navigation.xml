@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_notebook_shelf" >
         <action
             android:id="@+id/action_notebookShelfFragment_to_notebookDetailsFragment"
-            app:destination="@id/notebookDetailsFragment" />
+            app:destination="@id/notebookDetailsFragment"
+            app:popUpTo="@id/notebookShelfFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/notebookDetailsFragment"

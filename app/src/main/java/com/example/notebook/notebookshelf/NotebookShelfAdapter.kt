@@ -10,7 +10,7 @@ import com.example.notebook.R
 import com.example.notebook.database.Notebook
 
 class NotebookShelfAdapter(): RecyclerView.Adapter<NotebookShelfAdapter.MyViewHolder>() {
-        var data =ArrayList<Notebook>()
+        var data = listOf<Notebook>()
             set(value) {
                 field=value
                 notifyDataSetChanged()

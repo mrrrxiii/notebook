@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook.R
-import com.example.notebook.database.Notebook
+import com.example.notebook.database.NotebookDatabase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,23 +33,37 @@ class NotebookShelfFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    private lateinit var viewModel:NotebookShelfViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         var view=inflater.inflate(R.layout.fragment_notebook_shelf, container, false)
 
         var recyclerView=view.findViewById<RecyclerView>(R.id.notebook_list)
-        var notebookList=ArrayList<Notebook>()
-        for (i in 0..30){
-            val notebook=Notebook(notebookId = i.toLong() , content = "this is no $i")
-            notebookList.add(notebook)
-        }
+
+        //instantiate database and use databasedao to operate data
+        val application = requireNotNull(this.activity).application
+        var dataSource=NotebookDatabase.getInstance(application).notebookDatabaseDao
+
+        //instantiate viewmodel via viewmodel factory
+        val viewModelFactory = NotebookShelfViewModelFactory(dataSource, application)
+        viewModel= ViewModelProviders.of(this,viewModelFactory).get(NotebookShelfViewModel::class.java)
+
+        //instantiate recycler adapter
         var notebookShelfAdapter=NotebookShelfAdapter()
-            notebookShelfAdapter.data=notebookList
         recyclerView.adapter=notebookShelfAdapter
+
+        //obersve notebooklist in viewmodel and assign it to adapter
+        viewModel.notebookList.observe(viewLifecycleOwner, Observer {
+            notebookShelfAdapter.data=it
+        })
+
+        
+
+
 
 
 
