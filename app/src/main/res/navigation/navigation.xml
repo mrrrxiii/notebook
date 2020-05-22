@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/notebookShelfFragment">
+
+    <fragment
+        android:id="@+id/notebookShelfFragment"
+        android:name="com.example.notebook.notebookshelf.NotebookShelfFragment"
+        android:label="fragment_notebook_shelf"
+        tools:layout="@layout/fragment_notebook_shelf" >
+        <action
+            android:id="@+id/action_notebookShelfFragment_to_notebookDetailsFragment"
+            app:destination="@id/notebookDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notebookDetailsFragment"
+        android:name="com.example.notebook.notebookdetails.NotebookDetailsFragment"
+        android:label="fragment_notebook_details"
+        tools:layout="@layout/fragment_notebook_details" >
+        <action
+            android:id="@+id/action_notebookDetailsFragment_to_notebookShelfFragment"
+            app:destination="@id/notebookShelfFragment" />
+        <argument
+            android:name="unitNotebook"
+            app:argType="com.example.notebook.database.Notebook" />
+    </fragment>
+</navigation>
