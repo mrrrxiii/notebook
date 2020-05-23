@@ -24,12 +24,12 @@ android {
     }
 
     dataBinding {
-        enabled = true
-    }
+       enabled = true
+   }
 
-    buildFeatures{
-        dataBinding = true
-    }
+//    buildFeatures{
+//        dataBinding = true
+//    }
 
     buildTypes {
         release {

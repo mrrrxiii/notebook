@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
     tools:context=".notebookshelf.NotebookShelfFragment">
+
+
+    <data>
+        <variable
+            name="notebookShelfViewModel"
+            type="com.example.notebook.notebookshelf.NotebookShelfViewModel" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,6 +24,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:text="@string/btn_new"
+            android:onClick="@{()->notebookShelfViewModel.onNewNotebook()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -39,4 +47,4 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</layout>

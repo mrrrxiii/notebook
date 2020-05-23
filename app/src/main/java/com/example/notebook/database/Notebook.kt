@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 @Entity(tableName = "notebook_table")
 data class Notebook(
     @PrimaryKey(autoGenerate = true)
-    val notebookId: Long = 0L,
+    var notebookId: Long = 0L,
     @ColumnInfo(name = "content")
     var content: String = "",
 

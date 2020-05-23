@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.example.notebook.R
 import com.example.notebook.database.NotebookDatabase
+import com.example.notebook.databinding.FragmentNotebookShelfBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,35 +35,48 @@ class NotebookShelfFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    private lateinit var viewModel:NotebookShelfViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment
-        var view=inflater.inflate(R.layout.fragment_notebook_shelf, container, false)
+        // Inflate the layout for this fragment via databinding
+        val binding=DataBindingUtil.inflate<FragmentNotebookShelfBinding>(inflater,R.layout.fragment_notebook_shelf,container,false)
 
-        var recyclerView=view.findViewById<RecyclerView>(R.id.notebook_list)
+        binding.lifecycleOwner = this
 
         //instantiate database and use databasedao to operate data
         val application = requireNotNull(this.activity).application
-        var dataSource=NotebookDatabase.getInstance(application).notebookDatabaseDao
+        val dataSource=NotebookDatabase.getInstance(application).notebookDatabaseDao
 
         //instantiate viewmodel via viewmodel factory
         val viewModelFactory = NotebookShelfViewModelFactory(dataSource, application)
-        viewModel= ViewModelProviders.of(this,viewModelFactory).get(NotebookShelfViewModel::class.java)
+        val notebookShelfViewModel= ViewModelProviders.of(this,viewModelFactory).get(NotebookShelfViewModel::class.java)
+
+        //binding the viewmodel to layout
+        binding.notebookShelfViewModel=notebookShelfViewModel
+
 
         //instantiate recycler adapter
         var notebookShelfAdapter=NotebookShelfAdapter()
-        recyclerView.adapter=notebookShelfAdapter
+        binding.notebookList.adapter=notebookShelfAdapter
+
 
         //obersve notebooklist in viewmodel and assign it to adapter
-        viewModel.notebookList.observe(viewLifecycleOwner, Observer {
+        //show the notebook list
+        notebookShelfViewModel.notebookList.observe(viewLifecycleOwner, Observer {
             notebookShelfAdapter.data=it
         })
 
-        
+        notebookShelfViewModel.navigateToNotebookDetails.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                this.findNavController().navigate(
+                    NotebookShelfFragmentDirections.actionNotebookShelfFragmentToNotebookDetailsFragment(it.notebookId))
+                notebookShelfViewModel.doneNavigating()
+
+            }
+        })
 
 
 
@@ -71,8 +86,12 @@ class NotebookShelfFragment : Fragment() {
 
 
 
-        return view
+
+
+
+        return binding.root
     }
+
 
     companion object {
         /**

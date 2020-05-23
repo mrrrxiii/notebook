@@ -25,7 +25,7 @@
             android:id="@+id/action_notebookDetailsFragment_to_notebookShelfFragment"
             app:destination="@id/notebookShelfFragment" />
         <argument
-            android:name="unitNotebook"
-            app:argType="com.example.notebook.database.Notebook" />
+            android:name="unitNotebookId"
+            app:argType="long" />
     </fragment>
 </navigation>
