@@ -43,7 +43,7 @@ class NotebookShelfFragment : Fragment() {
 
         // Inflate the layout for this fragment via databinding
         val binding=DataBindingUtil.inflate<FragmentNotebookShelfBinding>(inflater,R.layout.fragment_notebook_shelf,container,false)
-
+//lifecycle can be automatically detected, not need to add code into ex. pause, stop
         binding.lifecycleOwner = this
 
         //instantiate database and use databasedao to operate data
@@ -63,16 +63,18 @@ class NotebookShelfFragment : Fragment() {
         binding.notebookList.adapter=notebookShelfAdapter
 
 
-        //obersve notebooklist in viewmodel and assign it to adapter
+        //observe notebooklist in viewmodel and assign it to adapter
         //show the notebook list
         notebookShelfViewModel.notebookList.observe(viewLifecycleOwner, Observer {
             notebookShelfAdapter.data=it
         })
 
+        //observe navigation variable to check if to navigate
         notebookShelfViewModel.navigateToNotebookDetails.observe(viewLifecycleOwner, Observer {
             it?.let{
                 this.findNavController().navigate(
                     NotebookShelfFragmentDirections.actionNotebookShelfFragmentToNotebookDetailsFragment(it.notebookId))
+                //after navigating, reset the variable
                 notebookShelfViewModel.doneNavigating()
 
             }

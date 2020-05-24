@@ -4,7 +4,8 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.notebook.database.NotebookDatabaseDao
-
+//when the viewmodel has additional parameters with appliaction
+//the factory should be used to instatiate viewmodel
 class NotebookShelfViewModelFactory  (
     private val dataSource: NotebookDatabaseDao,
 private val application: Application) : ViewModelProvider.Factory {

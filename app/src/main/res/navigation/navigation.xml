@@ -26,6 +26,6 @@
             app:destination="@id/notebookShelfFragment" />
         <argument
             android:name="unitNotebookId"
-            app:argType="long" />
+            app:argType="long" /><!--argument can should be added at the destination, '+' button on design view -->
     </fragment>
 </navigation>

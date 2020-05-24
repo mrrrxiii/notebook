@@ -34,17 +34,21 @@
             android:hint="Make some note"
             android:inputType="textMultiLine|textPersonName"
             android:minLines="20"
+            android:text="@{notebookDetailsViewModel.current.content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_time" />
+
+        <!--binding viemodel with element content or onclick, still need find a way to pass edittext to button on click
+        listener in xml code-->
 
         <TextView
             android:id="@+id/details_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="text"
+            android:text="@{notebookDetailsViewModel.current.timeStamp}"
             android:textAlignment="viewEnd"
             app:layout_constraintBottom_toBottomOf="@+id/btn_save"
             app:layout_constraintEnd_toStartOf="@+id/btn_save"

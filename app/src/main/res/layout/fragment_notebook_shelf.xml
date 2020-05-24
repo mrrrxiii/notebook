@@ -5,7 +5,7 @@
 
     tools:context=".notebookshelf.NotebookShelfFragment">
 
-
+    <!--to enable databinding the top layout should be "layout', default is 'framelayout'-->
     <data>
         <variable
             name="notebookShelfViewModel"

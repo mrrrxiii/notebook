@@ -54,12 +54,13 @@ class NotebookDetailsViewModel(
 
                val old=_current.value as Notebook
                 old.content=note
+            //database operation must be off main thread
                 withContext(Dispatchers.IO){
                 database.update(old)
                 }
 
 
-
+        //this should be noticed, livedata could not be run off main thread
             _navigatetoNotebookShelf.value=true
         }
 

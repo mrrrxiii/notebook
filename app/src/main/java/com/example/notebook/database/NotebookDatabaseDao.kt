@@ -46,7 +46,7 @@ interface NotebookDatabaseDao {
          * sorted by start time in descending order.
          */
         @Query("SELECT * FROM notebook_table ORDER BY notebookId DESC")
-        fun getAllNights(): LiveData<List<Notebook>>
+        fun getAllNights(): LiveData<List<Notebook>>//livedata could not be used in withcontext(dispatcher.io)
 
         /**
          * Selects and returns the latest night.

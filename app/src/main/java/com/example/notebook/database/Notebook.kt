@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 
 
 //entity class must declared as data class
-
+//define table name here
 @Entity(tableName = "notebook_table")
 data class Notebook(
     @PrimaryKey(autoGenerate = true)
@@ -21,3 +21,5 @@ data class Notebook(
     @ColumnInfo(name = "timestamp")
     var timeStamp: String = SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(Timestamp(System.currentTimeMillis()))
 ) : Serializable
+
+//serializable to pass between activity

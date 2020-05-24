@@ -63,10 +63,7 @@ class NotebookDetailsFragment : Fragment() {
 
         binding.lifecycleOwner=this
 
-        notebookDetailsViewModel.current.observe(this, Observer {
-            binding.detailsTime.text=it.timeStamp
-            binding.detailsContent.setText(it.content)
-        })
+
 
 
         binding.btnSave.setOnClickListener {

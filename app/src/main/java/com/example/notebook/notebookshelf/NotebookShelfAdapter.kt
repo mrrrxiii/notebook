@@ -28,9 +28,7 @@ class NotebookShelfAdapter(): RecyclerView.Adapter<NotebookShelfAdapter.MyViewHo
         val view = layoutInflater
             .inflate(R.layout.unit_notebook_listview, parent, false)
 
-        view.setOnClickListener {
-
-        }
+        // TODO: 5/23/2020 try to use viewmodel and binding to add observer to trigger navigation 
         return MyViewHolder(view)
     }
     //how many items to show
@@ -43,6 +41,7 @@ class NotebookShelfAdapter(): RecyclerView.Adapter<NotebookShelfAdapter.MyViewHo
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.content.text=data[position].content
         holder.time.text=data[position].timeStamp
+        //set onclick listener to trigger navigation
         holder.itemView.setOnClickListener {
             it.findNavController().navigate(NotebookShelfFragmentDirections.actionNotebookShelfFragmentToNotebookDetailsFragment(data[position].notebookId))
         }
