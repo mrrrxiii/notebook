@@ -9,16 +9,15 @@
             name="notebookDetailsViewModel"
             type="com.example.notebook.notebookdetails.NotebookDetailsViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
             android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="Save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,9 @@
             android:id="@+id/details_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:cursorVisible="true"
             android:ems="10"
             android:gravity="top|start"
@@ -45,14 +46,24 @@
 
         <TextView
             android:id="@+id/details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@{notebookDetailsViewModel.current.timeStamp}"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_save"
+            app:layout_constraintEnd_toStartOf="@+id/btn_del"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="time" />
+
+        <Button
+            android:id="@+id/btn_del"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="@{notebookDetailsViewModel.current.timeStamp}"
-            android:textAlignment="viewEnd"
+            android:text="DELETE"
             app:layout_constraintBottom_toBottomOf="@+id/btn_save"
-            app:layout_constraintEnd_toStartOf="@+id/btn_save"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_save" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

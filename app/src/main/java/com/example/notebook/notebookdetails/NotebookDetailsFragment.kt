@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -76,10 +78,47 @@ class NotebookDetailsFragment : Fragment() {
 
         }
 
+        binding.btnDel.setOnClickListener {
+            //Context is important, choose carefully!!!
+            val builder = AlertDialog.Builder(this.context!!)
+
+            // Set the alert dialog title
+            builder.setTitle("Delete")
+
+            // Display a message on alert dialog
+            builder.setMessage("Do you want to delete this notebook?")
+
+            // Set a positive button and its click listener on alert dialog
+            builder.setPositiveButton("YES"){dialog, which ->
+                // Do something when user press the positive button
+                notebookDetailsViewModel.onDeleteNotebook()
+
+
+            }
+
+
+            // Display a negative button on alert dialog
+            builder.setNegativeButton("No"){dialog,which ->
+                dialog.cancel();
+            }
+
+
+
+            builder.show()
+        }
+
         notebookDetailsViewModel.navigatetoNotebookShelf.observe(this, Observer {
             if (it==true){
                 this.findNavController().navigate(NotebookDetailsFragmentDirections.actionNotebookDetailsFragmentToNotebookShelfFragment())
                 notebookDetailsViewModel.doneNavigating()
+            }
+        })
+
+        notebookDetailsViewModel.navigateDel.observe(this, Observer {
+            if (it==true){
+                this.findNavController().navigate(NotebookDetailsFragmentDirections.actionNotebookDetailsFragmentToNotebookShelfFragment())
+                notebookDetailsViewModel.doneDelete()
+                Toast.makeText(application,"Deleted successfully.", Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -46,6 +46,14 @@ class NotebookDetailsViewModel(
         _navigatetoNotebookShelf.value=null
     }
 
+    private val _navigateDel=MutableLiveData<Boolean?>()
+
+    val navigateDel:LiveData<Boolean?>
+        get() = _navigateDel
+    fun doneDelete(){
+        _navigateDel.value=null
+    }
+
 
 
 
@@ -66,6 +74,18 @@ class NotebookDetailsViewModel(
 
 
     }
+
+    fun onDeleteNotebook(){
+        uiScope.launch {
+            val old=_current.value as Notebook
+            //database operation must be off main thread
+            withContext(Dispatchers.IO){
+                database.delete(old.notebookId)
+            }
+            _navigateDel.value=true
+        }
+    }
+
 
     override fun onCleared() {
         super.onCleared()

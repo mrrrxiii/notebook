@@ -32,8 +32,13 @@ interface NotebookDatabaseDao {
         @Query("SELECT * from notebook_table WHERE notebookId = :key")
         fun get(key: Long): Notebook?
 
-        /**
-         * Deletes all values from the table.
+    /**
+     * delete by id
+     */
+    @Query("DELETE FROM notebook_table WHERE notebookId=:key")
+    fun delete(key: Long)
+    /**
+    * Deletes all values from the table.
          *
          * This does not delete the table, only its contents.
          */
